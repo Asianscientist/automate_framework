@@ -21,5 +21,29 @@ class InventoryPage:
 
     def cart_count(self):
         return self.page.locator(".shopping_cart_badge").inner_text()
+    
+    def sort_by(self, value):
+        self.page.select_option(".product_sort_container", value)
 
-        
+    def prices(self):
+        raw = self.page.locator(".inventory_item_price").all_inner_texts()
+        return [float(p.replace("$", "")) for p in raw]
+
+class CartPage:
+    def __init__(self, page):
+        self.page = page
+
+    def checkout(self):
+        self.page.click("#checkout")
+
+    def fill_info(self, first, last, zip_code):
+        self.page.fill("#first-name", first)
+        self.page.fill("#last-name", last)
+        self.page.fill("#postal-code", zip_code)
+        self.page.click("#continue")
+
+    def finish(self):
+        self.page.click("#finish")
+
+    def complete_text(self):
+        return self.page.locator(".complete-header").inner_text()
