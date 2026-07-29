@@ -19,6 +19,9 @@ class InventoryPage:
     def add_to_cart(self, item_text="Add to cart"):
         self.page.click(f"text={item_text}")
 
+    def remove_from_cart(self, item_text="Remove"):
+        self.page.click(f"text={item_text}")
+
     def cart_count(self):
         return self.page.locator(".shopping_cart_badge").inner_text()
     
